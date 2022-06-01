@@ -53,7 +53,7 @@ public class User {
         return surname;
     }
 
-    public void setLastname(String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 

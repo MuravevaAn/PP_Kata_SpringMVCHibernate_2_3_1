@@ -12,11 +12,11 @@
 <p th:text="${user.getEmail()}">VALUE</p>
 
 <form th:method="GET" th:action="@{/{id}/edit(id=${user.getId()})}">
-    <input type="submit" value="Edit user">
+    <input type="submit" value="Edit">
 </form>
 
 <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">
-    <input type="submit" value="Delete user">
+    <input type="submit" value="Delete">
 </form>
 </body>
 </html>
