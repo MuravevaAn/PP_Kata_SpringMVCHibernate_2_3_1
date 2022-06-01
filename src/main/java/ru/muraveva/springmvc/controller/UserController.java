@@ -2,25 +2,65 @@ package ru.muraveva.springmvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.muraveva.springmvc.dao.UserDaoImpl;
+import org.springframework.web.bind.annotation.*;
+
+import ru.muraveva.springmvc.model.User;
+import ru.muraveva.springmvc.service.UserService;
+import ru.muraveva.springmvc.service.UserServiceImpl;
 
 @Controller
+@Transactional
 @RequestMapping("/")
 public class UserController {
 
-    private final UserDaoImpl userDao;
+    private final UserService userService;
+
 
     @Autowired
-    public UserController(UserDaoImpl userDao) {
-        this.userDao = userDao;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
     public String index(Model model) {
-//        model.addAttribute("users", userDao.index());
+        model.addAttribute("users", userService.getAllUsers());
         return "index";
+    }
+
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") long id, Model model) {
+        model.addAttribute("user", userService.show(id));
+        return "/show";
+    }
+
+    @GetMapping("/new")
+    public String newUser(@ModelAttribute("user") User user) {
+        return "new_user";
+    }
+
+    @PostMapping
+    public String creat(@ModelAttribute("user") User user) {
+        userService.addUser(user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") long id) {
+        model.addAttribute("user", userService.show(id));
+        return "/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") long id ) {
+        userService.updateUser(user, id);
+        return "redirect:/";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") long id) {
+        userService.deleteUser(id);
+        return "redirect:/";
     }
 }

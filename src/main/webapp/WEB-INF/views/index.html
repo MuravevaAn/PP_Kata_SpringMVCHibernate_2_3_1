@@ -5,21 +5,12 @@
     <title>User</title>
 </head>
 <body>
-<div>
-  <table border="1">
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Email</th>
-    </tr>
-    <tr th:each="user : ${users}">
-      <td th:utext="${user.getId()}"></td>
-      <td th:utext="${user.getName()}"></td>
-      <td th:utext="${user.getSurname()}"></td>
-      <td th:utext="${user.getEmail()}"></td>
-    </tr>
-  </table>
-</div>
+    <div th:each="user : ${users}">
+      <a th:href="@{/{id}(id=${user.getId()})}" th:text="${user.getId()}">user</a>
+      <a th:text="${user.getName()}"></a>
+      <a th:text="${user.getSurname()}"></a>
+      <a th:text="${user.getEmail()}"></a>
+    </div>
+    <h3><a href="/new">New User</a></h3>
 </body>
 </html>

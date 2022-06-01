@@ -1,14 +1,14 @@
-package ru.muraveva.springmvc.dao;
-
+package ru.muraveva.springmvc.service;
 
 import ru.muraveva.springmvc.model.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserService {
     List<User> getAllUsers();
     User show(long id);
     void addUser(User user);
-    void deleteUser(long id);
-    void updateUser(User user, long id);
+    void deleteUser(Long id);
+    void updateUser(User updatedUser, long id);
+
 }

@@ -1,5 +1,55 @@
 package ru.muraveva.springmvc.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.muraveva.springmvc.model.User;
+import ru.muraveva.springmvc.service.UserService;
+
+import javax.annotation.PostConstruct;
+
+@Component
 public class DataInitializer {
-    
+
+
+    private UserService userService;
+
+    @Autowired
+    public DataInitializer(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostConstruct
+    private void init() {
+
+        User user = new User();
+        user.setName("Anna");
+        user.setLastname("Muraveva");
+        user.setEmail("Test1@mail.ru");
+
+        User user2 = new User();
+        user2.setName("Artem");
+        user2.setLastname("Muravev");
+        user2.setEmail("Test2@mail.ru");
+
+        User user3 = new User();
+        user3.setName("Ivan");
+        user3.setLastname("Ivanov");
+        user3.setEmail("Test3@mail.ru");
+
+        User user4 = new User();
+        user4.setName("Petr");
+        user4.setLastname("Petrov");
+        user4.setEmail("Test4@mail.ru");
+
+        User user5 = new User();
+        user5.setName("Semen");
+        user5.setLastname("Kruglov");
+        user5.setEmail("Test5@mail.ru");
+
+        userService.addUser(user);
+        userService.addUser(user2);
+        userService.addUser(user3);
+        userService.addUser(user4);
+        userService.addUser(user5);
+    }
 }
